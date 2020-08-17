@@ -21,6 +21,8 @@ export default createGlobalStyle`
   body, #root {
     min-height: 100vh;
     position: relative;
+    display: flex;
+    flex-direction: column;
   }
   body, input, button {
     font: 1.6rem 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";

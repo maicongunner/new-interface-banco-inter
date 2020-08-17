@@ -6,6 +6,7 @@ import { Container, Wrapper, LeftNav, RightNav } from './styles';
 import Button from '../Button';
 import Accountdropdown from './Accountdropdown';
 import { User } from './Header';
+import Gradient from './Gradient';
 
 const Header: React.FC = () => {
   const user: User = { name: 'Maicon Domingues' };
@@ -22,6 +23,7 @@ const Header: React.FC = () => {
           <Accountdropdown user={user} />
         </RightNav>
       </Wrapper>
+      <Gradient />
     </Container>
   );
 };
