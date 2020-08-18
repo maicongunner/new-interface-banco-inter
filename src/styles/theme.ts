@@ -21,6 +21,9 @@ export default {
     horizontal: '0 1.6rem',
     large: '2.4rem',
   },
+  radius: {
+    default: '0.8rem',
+  },
   transition: {
     default: '180ms ease-in-out',
   },

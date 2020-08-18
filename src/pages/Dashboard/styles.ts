@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  margin-top: -2.8rem;
   width: 100%;
   height: 100%;
   display: flex;
@@ -9,7 +10,6 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  margin-top: -1rem;
   max-width: 100rem;
   width: 100%;
   height: 100%;
