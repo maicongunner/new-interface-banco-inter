@@ -1,14 +1,20 @@
 import React from 'react';
+import { FiBarChart2 } from 'react-icons/fi';
 
-import navigation from './navigation';
+import { dashboardNavigation } from '../../../resources';
 import Dropdown from './Dropdown';
+import AccountBalance from './AccountBalance';
 
-import { Container } from './styles';
+import { Container, AmountInvested } from './styles';
 
 const Sidebar: React.FC = () => {
   return (
     <Container>
-      {Object.entries(navigation).map(([key, value]) => (
+      <AccountBalance />
+      <AmountInvested>
+        Ver total investido <FiBarChart2 />
+      </AmountInvested>
+      {Object.entries(dashboardNavigation).map(([key, value]) => (
         <Dropdown key={key} icon={value.icon} sectionName={key} />
       ))}
     </Container>

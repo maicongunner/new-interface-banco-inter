@@ -6,7 +6,7 @@ import {
   ShieldIcon,
   SmartphoneIcon,
   UmbrellaIcon,
-} from '../../../assets/images/icons';
+} from '../assets/images/icons';
 
 export default {
   'Conta Digital': {

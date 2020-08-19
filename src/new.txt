@@ -1,0 +1,269 @@
+### Alterar marcas nas variaveis $brand ###
+$brandLower=arezzo
+$brandFirstLetterUpper=Arezzo
+### Alterar marcas nas variaveis $brand ###
+
+### Alterar numero da loja ###
+$store=100
+### Alterar numero da loja ###
+
+### Porcentagem de comissão modalide pick-up-store ###
+$percentageDefaultCommissionPickUp=14
+### Porcentagem de comissão modalide store-shipping ###
+$percentageDefaultCommissionSS=14
+
+### Porcentagem de comissão loja pick-up-store ###
+$percentageStoreCommissionPickUp=12
+### Porcentagem de comissão loja store-shipping ###
+$percentageStoreCommissionSS=12
+
+### Porcentagem de comissão remarcado pick-up-store ###
+$percentageStoreDiscountCommissionPickUp=10
+### Porcentagem de comissão remarcado store-shipping ###
+$percentageStoreDiscountCommissionSS=10
+
+$lang=pt
+$productCatalog=$brandLowerProductCatalog
+$staged=catalogVersion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default='$productCatalog:Online']
+
+## Administrador
+
+INSERT_UPDATE UserGroup;uid[unique=true];hmcLoginDisabled[default=true];locName[lang=$lang,en];groups(uid)
+;$brandLowerAdminGroup;;$brandLowerAdminGroup;
+;storeEmployeeGroup;;storeEmployeeGroup
+
+INSERT_UPDATE Employee;uid[unique=true];groups(uid);name;password
+;$brandLower_admindash@$brandLower.com;$brandLowerAdminGroup;User admin dash;123456
+
+INSERT_UPDATE StoreShippingAdminDashboardConfiguration;code[unique=true];timeToShowAllOrders;statusToShow(code);statusToDoesNotShow(code)
+;$brandLower-admin-dashboard-config;24000;AVAILABLE_FOR_STORE,CONFIRMED_BY_STORE,WAITING_FOR_CUSTOMER_PICK_UP,RESERVED_BY_STORE,SHIPPED,STORE_SHIPPING_CAPTURE_AMOUNT_PROBLEM,STORE_SHIPPING_PROBLEM,STORE_SHIPPING_PROBLEM_ANALYZING,DELIVERY_PROBLEM;DELIVERED,ORDER_SPLIT;
+
+## CronJob
+
+INSERT_UPDATE GenericModelForStoresCronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode);storeName
+;$brandLowerStoreShippingImportStoreStockCronJob;storeShippingImportStoreStockJob;false;en;$brandLower
+
+# PSPAccount
+
+INSERT_UPDATE PSPAccount;accountBankAccountNumber[unique=true];accountAccountVerificationDigits;accountLegalName[unique=true];accountDocumentNumber;accountBankCode;accountBankAgencyCode;accountBankAgencyVerificationDigit;transferInterval(code);transferDay
+;123456;1;FRETE AREZZO ZZAB SER;01572617004;745;123;;WEEKLY;3
+
+## StoreShippingStep
+
+INSERT_UPDATE StoreShippingStep;code[unique=true];radius;allowedTime;priority;unit(code)[default='km']
+;step-store-shipping-$brandLower-1;10;5;1;
+;step-store-shipping-$brandLower-2;20;10;2;
+;step-pick-up-$brandLower-1;20;10;1;
+
+## Schedule
+
+INSERT_UPDATE OpeningSchedule;code[unique=true];
+;defaultStoreSchedule;
+
+INSERT_UPDATE WeekdayOpeningDay;openingSchedule(code)[unique=true];dayOfWeek(code)[unique=true];openingTime[dateformat=hh:mm];closingTime[dateformat=hh:mm];
+;defaultStoreSchedule;MONDAY   ;00:00;23:59
+;defaultStoreSchedule;TUESDAY  ;00:00;23:59
+;defaultStoreSchedule;WEDNESDAY;00:00;23:59
+;defaultStoreSchedule;THURSDAY ;00:00;23:59
+;defaultStoreSchedule;FRIDAY   ;00:00;23:59
+;defaultStoreSchedule;SATURDAY ;00:00;23:59
+;defaultStoreSchedule;SUNDAY   ;00:00;23:59
+
+## Zone Delivery Modes Pick Up
+
+INSERT_UPDATE ZoneDeliveryMode;code[unique=true];basestore(uid);net;active[default=true];name[lang=$lang];description[lang=$lang];storeSales(code)
+;pick-up-store-$brandLower;$brandLower;true;;"Retirada agendada";"Retirada agendada";PICK_UP_STORE
+
+## Zone Delivery Modes Store Shipping
+
+INSERT_UPDATE ZoneDeliveryMode;code[unique=true];basestore(uid);net;active[default=true];name[lang=$lang];description[lang=$lang];storeSales(code)
+;eu-entrego-$brandLower;$brandLower;true;true;"EuEntrego";"EuEntrego";STORE_SHIPPING
+
+INSERT_UPDATE ZoneDeliveryMode;code[unique=true];basestore(uid);net;active[default=true];name[lang=$lang];description[lang=$lang];storeSales(code)
+;uello-$brandLower;$brandLower;true;true;"Uello";"Uello";STORE_SHIPPING
+
+## Stock
+
+INSERT_UPDATE StoreShippingCategoryStockConfiguration;code[unique=true];category(code, $staged);stockMinimum
+;pick-up-sapatos-$brandLower;SAPATOS;3
+;pick-up-bolsas-$brandLower;BOLSAS;1
+;store-shipping-sapatos-$brandLower;SAPATOS;3
+;store-shipping-bolsas-$brandLower;BOLSAS;1
+
+## Config
+
+# INSERT_UPDATE StoreShippingConfiguration;code[unique=true];storeSalesType(code);daysToDeliveryModeValue;previewDaysTransferValue;priorTimeToCloseTheStore;storeReservationTime;supportSplit;timeToRetryToSendTheOrderToDeliveryCompany;useDefaultSchedule;defaultOpeningSchedule(code);defaultDeliveryMode(code);storePSPAccount(accountLegalName);
+# ;store-shipping-config-$brandLower;STORE_SHIPPING;1;2;;4;true;60;true;defaultStoreSchedule;;FRETE VANS ZZAB SER
+# ;pick-up-store-config-$brandLower;PICK_UP_STORE;1;2;;35;false;;true;defaultStoreSchedule;pick-up-store-$brandLower;FRETE VANS ZZAB SER
+
+INSERT_UPDATE StoreShippingConfiguration;code[unique=true];categoryStockConfiguration(code)[mode=append]
+;pick-up-store-config-$brandLower;pick-up-sapatos-$brandLower
+;pick-up-store-config-$brandLower;pick-up-bolsas-$brandLower
+;store-shipping-config-$brandLower;store-shipping-sapatos-$brandLower
+;store-shipping-config-$brandLower;store-shipping-bolsas-$brandLower
+
+INSERT_UPDATE StoreShippingConfiguration;code[unique=true];steps(code)[mode=append]
+;pick-up-store-config-$brandLower;step-pick-up-$brandLower-1
+;store-shipping-config-$brandLower;step-store-shipping-$brandLower-1
+;store-shipping-config-$brandLower;step-store-shipping-$brandLower-2
+
+INSERT_UPDATE StoreShippingConfiguration;code[unique=true];toolTipMessage
+;pick-up-store-config-$brandLower;Agende a retirada em uma loja perto de você.
+;store-shipping-config-$brandLower;Receba em casa a partir de uma loja perto de você. Em caso de troca, entre em contato com a loja
+
+## Base Store
+
+UPDATE BaseStore;uid[unique=true];ssConf(code);enableStoreShipping[default=true]
+;$brandLower;store-shipping-config-$brandLower;
+
+UPDATE BaseStore;uid[unique=true];pickUpStoreConf(code);enablePickUpStore[default=true];pickupInStoreMode(code)
+;$brandLower;pick-up-store-config-$brandLower;;BUY_AND_COLLECT
+
+UPDATE BaseStore;uid[unique=true];adminDashboardConfiguration(code)
+;$brandLower;$brandLower-admin-dashboard-config;
+
+## POS
+
+INSERT_UPDATE PointOfService;name[unique=true];displayName;type(code)
+;$store;Store Shipping Center-$store;STORE
+
+INSERT_UPDATE PSPAccount;accountBankAccountNumber[unique=true];accountAccountVerificationDigits;accountLegalName;accountDocumentNumber;accountBankCode;accountBankAgencyCode;accountBankAgencyVerificationDigit;transferInterval(code);transferDay
+;12345;1;Test;01572617004;745;123;;WEEKLY;3
+
+INSERT_UPDATE Address;&addrID;streetname;streetnumber;postalcode;town[unique=true];country(isocode);region(isocode);phone1;owner(PointOfService.name)[unique=true]
+;addStoreShipping;Rua B;8;01310-100;São Paulo;BR;BR-SP;+81 9583 8863;$store
+
+INSERT_UPDATE Vendor;code[unique=true]
+;$vendor
+
+INSERT_UPDATE Warehouse;code[unique=true];vendor(code)[default=$vendor];name[lang=pt];name[lang=en];default
+;$brandLower_loja_$store_warehouse;;$brandFirstLetterUpper Warehouse Loja $store;$brandFirstLetterUpper Warehouse Store $store;false
+
+INSERT_UPDATE BaseStore2WarehouseRel;source(uid)[unique=true];target(code)[unique=true]
+;$brandLower;$brandLower_loja_$store_warehouse
+
+#WINDOWS
+INSERT_UPDATE PointOfService;name[unique=true];displayName;type(code);address(&addrID);latitude;longitude;geocodeTimestamp[dateformat=dd-MM-yyyy];basestore(uid);warehouses(code);pspAccount(accountBankAccountNumber);coveredByStoreShippingCompany[default=true];participateInStoreShipping[default=true];participateInPickUpStore[default=true]
+;$store;Store Shipping Center-$store;STORE;addStoreShipping;-23,5552127;-46,6620674;29-04-2011;$brandLower;$brandLower_loja_$store_warehouse;12345;;;
+
+#LINUX
+# INSERT_UPDATE PointOfService;name[unique=true];displayName;type(code);address(&addrID);latitude;longitude;geocodeTimestamp[dateformat=dd-MM-yyyy];basestore(uid);warehouses(code);pspAccount(accountBankAccountNumber);coveredByStoreShippingCompany[default=true];participateInStoreShipping[default=true];participateInPickUpStore[default=true]
+# ;$store;Store Shipping Center-$store;STORE;addStoreShipping;-23.5552127;-46.6620674;29-04-2011;$brandLower;$brandLower_loja_$store_warehouse;12345;;;
+
+## Stock POS
+
+INSERT_UPDATE StockLevel;productCode[unique=true];maxStockLevelHistoryCount;available;warehouse(code)[unique=true][mode=append]
+;0366001720002U-36;-1;30000;$brandLower_loja_$store_warehouse
+;1005200050001U-36;-1;30000;$brandLower_loja_$store_warehouse
+;5000200050001U-01;-1;30000;$brandLower_loja_$store_warehouse
+;0376216980557U-36;-1;30000;$brandLower_loja_$store_warehouse
+;0348600270001U-36;-1;30000;$brandLower_loja_$store_warehouse
+;0284700680004U-36;-1;30000;$brandLower_loja_$store_warehouse
+;0366001720001U-36;-1;30000;$brandLower_loja_$store_warehouse
+;0376267230577U-36;-1;30000;$brandLower_loja_$store_warehouse
+;0316405080004U-36;-1;30000;$brandLower_loja_$store_warehouse
+;0262400560062U-36;-1;30000;$brandLower_loja_$store_warehouse
+;1005200050001U-36;-1;30000;$brandLower_loja_$store_warehouse
+;1005200050001U-36;-1;30000;$brandLower_loja_$store_warehouse
+
+## Store
+
+INSERT_UPDATE StoreEmployeeGroup;uid[unique=true];hmcLoginDisabled[default=true];name;groups(uid);store(name)
+;$store_storeEmployeeGroup;;storeEmployeeGroup;;$store
+
+INSERT_UPDATE Employee;uid[unique=true];groups(uid);name;password
+;$store_dashboards@store.com;$store_storeEmployeeGroup,storeEmployeeGroup,employeegroup;User Store Dash;123456
+
+## DefaultCommission
+INSERT_UPDATE DefaultCommission;code[unique=true];priority;percentage;configuration(code)
+;store-shipping-$brandLower;3;$percentageDefaultCommissionSS;store-shipping-config-$brandLower
+INSERT_UPDATE DefaultCommission;code[unique=true];priority;percentage;configuration(code)
+;pick-up-store-$brandLower;3;$percentageDefaultCommissionPickUp;pick-up-store-config-$brandLower
+
+##StoreCommission
+INSERT_UPDATE StoreCommission;code[unique=true];priority;percentage;store(name)
+;store-shipping-$store;2;$percentageStoreCommissionSS;$store
+INSERT_UPDATE StoreCommission;code[unique=true];priority;percentage;store(name)
+;pick-up-store-$store;2;$percentageStoreCommissionPickUp;$store
+
+#StoreDiscountCommision
+INSERT_UPDATE StoreDiscountCommission;code[unique=true];priority;percentage;store(name)
+;store-shipping-discount-$store;1;$percentageStoreDiscountCommissionSS;$store
+INSERT_UPDATE StoreDiscountCommission;code[unique=true];priority;percentage;store(name)
+;pick-up-store-discount-$store;1;$percentageStoreDiscountCommissionPickUp;$store
+
+##Insert Commission into StoreShippingConfiguration
+INSERT_UPDATE StoreShippingConfiguration;code[unique=true];commissions(code)[mode=append]
+;store-shipping-config-$brandLower;store-shipping-$brandLower, store-shipping-$store, store-shipping-discount-$store
+;pick-up-store-config-$brandLower;pick-up-store-$brandLower, pick-up-store-$store, pick-up-store-discount-$store
+
+
+
+## config to create another store
+## config to create another store
+## config to create another store
+## config to create another store
+## config to create another store
+## config to create another store
+
+
+### Alterar numero da loja ###
+$store2=101
+### Alterar numero da loja ###
+
+$lang=pt
+$productCatalog=$brandLowerProductCatalog
+$staged=catalogVersion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default='$productCatalog:Online']
+
+
+## POS
+
+INSERT_UPDATE PointOfService;name[unique=true];displayName;type(code)
+;$store2;Store Shipping Center-$store2;STORE
+
+INSERT_UPDATE PSPAccount;accountBankAccountNumber[unique=true];accountAccountVerificationDigits;accountLegalName;accountDocumentNumber;accountBankCode;accountBankAgencyCode;accountBankAgencyVerificationDigit;transferInterval(code);transferDay
+;12345;1;Test;01572617004;745;123;;WEEKLY;3
+
+INSERT_UPDATE Address;&addrID;streetname;streetnumber;postalcode;town[unique=true];country(isocode);region(isocode);phone1;owner(PointOfService.name)[unique=true]
+;addStoreShipping$store2;Rua B;8;01310-100;São Paulo;BR;BR-SP;+81 9583 8863;$store2
+
+INSERT_UPDATE Vendor;code[unique=true]
+;$vendor
+
+INSERT_UPDATE Warehouse;code[unique=true];vendor(code)[default=$vendor];name[lang=pt];name[lang=en];default
+;$brandLower_loja_$store2_warehouse;;$brandFirstLetterUpper Warehouse Loja $store2;$brandFirstLetterUpper Warehouse Store $store2;false
+
+INSERT_UPDATE BaseStore2WarehouseRel;source(uid)[unique=true];target(code)[unique=true]
+;$brandLower;$brandLower_loja_$store2_warehouse
+
+# WINDOWS
+INSERT_UPDATE PointOfService;name[unique=true];displayName;type(code);address(&addrID);latitude;longitude;geocodeTimestamp[dateformat=dd-MM-yyyy];basestore(uid);warehouses(code);pspAccount(accountBankAccountNumber);coveredByStoreShippingCompany[default=true];participateInStoreShipping[default=true];participateInPickUpStore[default=true]
+;$store2;Store Shipping Center-$store2;STORE;addStoreShipping$store2;-23,5552127;-46,6620674;29-04-2011;$brandLower;$brandLower_loja_$store2_warehouse;12345;;;
+
+# LINUX
+# INSERT_UPDATE PointOfService;name[unique=true];displayName;type(code);address(&addrID);latitude;longitude;geocodeTimestamp[dateformat=dd-MM-yyyy];basestore(uid);warehouses(code);pspAccount(accountBankAccountNumber);coveredByStoreShippingCompany[default=true];participateInStoreShipping[default=true];participateInPickUpStore[default=true]
+# ;$store2;Store Shipping Center-$store2;STORE;addStoreShipping$store2;-23.5552127;-46.6620674;29-04-2011;$brandLower;$brandLower_loja_$store2_warehouse;12345;;;
+
+## Stock POS
+
+INSERT_UPDATE StockLevel;productCode[unique=true];maxStockLevelHistoryCount;available;warehouse(code)[unique=true][mode=append]
+;0366001720002U-36;-1;30000;$brandLower_loja_$store2_warehouse
+;1005200050001U-36;-1;30000;$brandLower_loja_$store2_warehouse
+;5000200050001U-01;-1;30000;$brandLower_loja_$store2_warehouse
+;0376216980557U-36;-1;30000;$brandLower_loja_$store2_warehouse
+;0348600270001U-36;-1;30000;$brandLower_loja_$store2_warehouse
+;0284700680004U-36;-1;30000;$brandLower_loja_$store2_warehouse
+;0366001720001U-36;-1;30000;$brandLower_loja_$store2_warehouse
+;0376267230577U-36;-1;30000;$brandLower_loja_$store2_warehouse
+;0316405080004U-36;-1;30000;$brandLower_loja_$store2_warehouse
+;0262400560062U-36;-1;30000;$brandLower_loja_$store2_warehouse
+;1005200050001U-36;-1;30000;$brandLower_loja_$store2_warehouse
+;1005200050001U-36;-1;30000;$brandLower_loja_$store2_warehouse
+
+## Store
+
+INSERT_UPDATE StoreEmployeeGroup;uid[unique=true];hmcLoginDisabled[default=true];name;groups(uid);store(name)
+;$store2_storeEmployeeGroup;;storeEmployeeGroup;;$store2
+
+INSERT_UPDATE Employee;uid[unique=true];groups(uid);name;password
+;$store2_dashboards@store.com;$store2_storeEmployeeGroup,storeEmployeeGroup,employeegroup;User Store Dash;123456

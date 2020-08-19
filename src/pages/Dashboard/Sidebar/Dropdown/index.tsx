@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiChevronDown } from 'react-icons/fi';
 
 import { Container } from './styles';
 
@@ -9,10 +10,10 @@ interface DropdownProps {
 
 const Dropdown: React.FC<DropdownProps> = ({ icon, sectionName }) => {
   return (
-    <Container>
+    <Container variant="transparent">
       <div>{icon}</div>
       {sectionName}
-      <div>Arrow</div>
+      <FiChevronDown />
     </Container>
   );
 };

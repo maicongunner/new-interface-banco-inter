@@ -1,8 +1,9 @@
 import React from 'react';
+
 import Header from '../../components/Header';
+import Sidebar from './Sidebar';
 
 import { Container, Wrapper } from './styles';
-import Sidebar from './Sidebar';
 
 const Dashboard: React.FC = () => {
   return (

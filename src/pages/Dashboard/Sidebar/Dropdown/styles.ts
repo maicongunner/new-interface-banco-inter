@@ -2,10 +2,10 @@ import styled, { css } from 'styled-components';
 import Button from '../../../../components/Button';
 
 export const Container = styled(Button)`
-  ${({ theme }) => css`
+  && {
+    ${({ theme }) => css`
     color: ${theme.colors.grey};
     font-size: ${theme.fontSizes.default};
-    background: transparent;
     width: 100%;
     justify-content: flex-start;
     border-radius: 0;
@@ -33,4 +33,5 @@ export const Container = styled(Button)`
     }
 
   `}
+  }
 `;
