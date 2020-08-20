@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Container as Button } from '../../../../components/Button/styles';
 
 export const Container = styled.div`
   ${({ theme }) => css`
@@ -14,6 +15,15 @@ export const Container = styled.div`
     svg {
       stroke-width: 1.5;
     }
+
+    ${Button} {
+      &:hover {
+        svg {
+          transform: scale(1.08);
+          stroke-width: 2.3;
+        }
+      }
+    }
   `}
 `;
 
@@ -28,7 +38,7 @@ export const Balance = styled.div`
         max-width: 10rem;
         height: 2rem;
         background: ${theme.colors.grey}b3;
-        border-radius: ${theme.radius.small};
+        border-radius: ${theme.radius.tiny};
       }
     }
 

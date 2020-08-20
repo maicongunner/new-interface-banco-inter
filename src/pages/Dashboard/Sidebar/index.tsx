@@ -12,7 +12,7 @@ const Sidebar: React.FC = () => {
     <Container>
       <AccountBalance />
       <AmountInvested>
-        Ver total investido <FiBarChart2 />
+        Ver total investido <FiBarChart2 size="1.6rem" />
       </AmountInvested>
       {Object.entries(dashboardNavigation).map(([key, value]) => (
         <Dropdown key={key} icon={value.icon} sectionName={key} />
