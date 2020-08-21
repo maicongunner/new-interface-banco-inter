@@ -29,4 +29,7 @@ export default {
   transition: {
     default: '180ms ease-in-out',
   },
+  shadows: {
+    default: '0 5px 20px  rgba(0, 0, 0, 0.08)',
+  },
 } as const;
