@@ -1,16 +1,40 @@
 import styled, { css } from 'styled-components';
+import Button from '../../Button';
+import { transparentize } from 'polished';
 
-export const Container = styled.ul`
-  list-style-type: none;
+export const Container = styled.div`
   width: 100%;
   height: 100%;
   max-height: 12rem;
+  display: flex;
+
+  > button:last-child {
+    ${({ theme }) => css`
+      margin-left: 2.4rem;
+      align-self: flex-end;
+      background: ${transparentize(0.92, theme.colors.grey)};
+      border-radius: 50%;
+      max-width: 4rem;
+      max-height: 4rem;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+
+      svg {
+        width: auto;
+        height: 2.4rem;
+      }
+    `}
+  }
+`;
+
+export const Navigation = styled.nav`
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(10.4rem, 1fr));
   column-gap: 0.8rem;
 `;
 
-export const Card = styled.li`
+export const Card = styled(Button)`
   ${({ theme }) => css`
     max-width: 12rem;
     max-height: 12rem;
@@ -21,6 +45,7 @@ export const Card = styled.li`
     align-items: center;
     flex-direction: column;
     background: ${theme.colors.background};
+    color: ${theme.colors.grey};
     border-radius: ${theme.radius.default};
     padding: 1.6rem;
     box-shadow: ${theme.shadows.default};
