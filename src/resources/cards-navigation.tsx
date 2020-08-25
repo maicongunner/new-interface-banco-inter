@@ -28,4 +28,4 @@ export default {
   Seguros: {
     icon: <FiUmbrella />,
   },
-};
+} as const;
