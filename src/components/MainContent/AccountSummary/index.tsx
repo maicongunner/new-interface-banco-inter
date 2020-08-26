@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useState } from 'react';
 
 import {
   Container,
@@ -7,22 +7,17 @@ import {
   LeftData,
   RightData,
   DataValue,
+  DataWrapper,
 } from './styles';
 
 import { FiCreditCard, FiFileText, FiEye, FiEyeOff } from 'react-icons/fi';
 import PlataformaPaiLogo from '../../../assets/images/icons/plataforma-pai.png';
+import CreditCardIllustration from '../../../assets/images/illustrations/card-illustration.png';
 import Button from '../../Button';
 
-const INITIAL_STATE = {
-  displayStatement: false,
-  displayInvestiments: false,
-};
-
 const AccountSummary: React.FC = () => {
-  // const [{ displayInvestiments, displayStatement }, dispatch] = useReducer(
-  //   reducer,
-  //   INITIAL_STATE,
-  // );
+  const [displayInvestiments, setDisplayInvestments] = useState(true);
+  const [displayStatement, setDisplayStatement] = useState(true);
 
   return (
     <Container>
@@ -30,13 +25,22 @@ const AccountSummary: React.FC = () => {
         <Header>
           <FiFileText />
           <h3>Extrato</h3>
-          <Button></Button>
+          <Button
+            onClick={() => setDisplayStatement(prevState => !prevState)}
+            variant="transparent"
+          >
+            {displayStatement ? <FiEyeOff /> : <FiEye />}
+          </Button>
         </Header>
-        <LeftData>Gráfico</LeftData>
-        <RightData>
-          <span>Título</span>
-          <DataValue>Valor</DataValue>
-        </RightData>
+        <DataWrapper>
+          <LeftData>Gráfico</LeftData>
+          <RightData>
+            <span>Título</span>
+            <DataValue>{displayStatement ? 'Valor' : '---'}</DataValue>
+            <span>Título</span>
+            <DataValue>{displayStatement ? 'Valor' : '---'}</DataValue>
+          </RightData>
+        </DataWrapper>
       </Card>
 
       <Card>
@@ -44,24 +48,43 @@ const AccountSummary: React.FC = () => {
           <FiCreditCard />
           <h3>MasterCard 8430</h3>
         </Header>
-        <LeftData>Gráfico</LeftData>
-        <RightData>
-          <span>Título</span>
-          <DataValue>Valor</DataValue>
-        </RightData>
+        <DataWrapper>
+          <LeftData>
+            <img
+              src={CreditCardIllustration}
+              alt="Cartão de Crédito sem auniedade"
+            />
+          </LeftData>
+          <RightData>
+            <span>Seu cartão é Mastercard e sem anuidade!</span>
+          </RightData>
+        </DataWrapper>
       </Card>
 
       <Card>
         <Header>
           <img src={PlataformaPaiLogo} alt="Plataforma pai logo" />
           <h3>Plataforma Aberta Inter</h3>
+          <Button
+            onClick={() => setDisplayInvestments(prevState => !prevState)}
+            variant="transparent"
+          >
+            {displayInvestiments ? <FiEyeOff /> : <FiEye />}
+          </Button>
         </Header>
-        <LeftData>Gráfico</LeftData>
-        <RightData>
-          <span>Título</span>
-          {/* <DataValue>{displayInvestiments ? 'Valor' : '---'}</DataValue>
-          <DataValue>{displayInvestiments ? 'Valor' : '---'}</DataValue> */}
-        </RightData>
+        <DataWrapper>
+          <LeftData>Gráfico</LeftData>
+          <RightData>
+            <span>Título</span>
+            <DataValue income>
+              {displayInvestiments ? 'Valor' : '---'}
+            </DataValue>
+            <span>Título</span>
+            <DataValue outcome>
+              {displayInvestiments ? 'Valor' : '---'}
+            </DataValue>
+          </RightData>
+        </DataWrapper>
       </Card>
     </Container>
   );
