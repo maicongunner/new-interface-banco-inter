@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+import { ResponsiveLine } from '@nivo/line';
+import { useTheme } from 'styled-components';
+
 import {
   Container,
   Card,
@@ -14,6 +17,7 @@ import { FiCreditCard, FiFileText, FiEye, FiEyeOff } from 'react-icons/fi';
 import PlataformaPaiLogo from '../../../assets/images/icons/plataforma-pai.png';
 import CreditCardIllustration from '../../../assets/images/illustrations/card-illustration.png';
 import Button from '../../Button';
+import { lineChartData } from '../../../resources';
 
 const AccountSummary: React.FC = () => {
   const [displayInvestiments, setDisplayInvestments] = useState(true);
@@ -35,10 +39,14 @@ const AccountSummary: React.FC = () => {
         <DataWrapper>
           <LeftData>Gráfico</LeftData>
           <RightData>
-            <span>Título</span>
-            <DataValue>{displayStatement ? 'Valor' : '---'}</DataValue>
-            <span>Título</span>
-            <DataValue>{displayStatement ? 'Valor' : '---'}</DataValue>
+            <span>Receita</span>
+            <DataValue income>
+              {displayStatement ? 'R$ 8.522,00' : '---'}
+            </DataValue>
+            <span>Despesas</span>
+            <DataValue outcome>
+              {displayStatement ? 'R$ 7.948,00' : '---'}
+            </DataValue>
           </RightData>
         </DataWrapper>
       </Card>
@@ -73,16 +81,79 @@ const AccountSummary: React.FC = () => {
           </Button>
         </Header>
         <DataWrapper>
-          <LeftData>Gráfico</LeftData>
+          <LeftData>
+            <ResponsiveLine
+              data={lineChartData}
+              margin={{ top: 8, right: -8, bottom: 24, left: -8 }}
+              xScale={{ type: 'point' }}
+              yScale={{
+                type: 'linear',
+                min: 'auto',
+                max: 'auto',
+                stacked: true,
+                reverse: false,
+              }}
+              axisTop={null}
+              axisRight={null}
+              axisBottom={{
+                orient: 'bottom',
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'transportation',
+                legendOffset: 36,
+                legendPosition: 'middle',
+              }}
+              axisLeft={{
+                orient: 'left',
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'count',
+                legendOffset: -40,
+                legendPosition: 'middle',
+              }}
+              colors={{ scheme: 'nivo' }}
+              pointSize={10}
+              pointColor={{ theme: 'background' }}
+              pointBorderWidth={2}
+              pointBorderColor={{ from: 'serieColor' }}
+              pointLabel="y"
+              pointLabelYOffset={-12}
+              useMesh={true}
+              legends={[
+                {
+                  anchor: 'bottom-right',
+                  direction: 'column',
+                  justify: false,
+                  translateX: 100,
+                  translateY: 0,
+                  itemsSpacing: 0,
+                  itemDirection: 'left-to-right',
+                  itemWidth: 80,
+                  itemHeight: 20,
+                  itemOpacity: 0.75,
+                  symbolSize: 12,
+                  symbolShape: 'circle',
+                  symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                  effects: [
+                    {
+                      on: 'hover',
+                      style: {
+                        itemBackground: 'rgba(0, 0, 0, .03)',
+                        itemOpacity: 1,
+                      },
+                    },
+                  ],
+                },
+              ]}
+            />
+          </LeftData>
           <RightData>
-            <span>Título</span>
-            <DataValue income>
-              {displayInvestiments ? 'Valor' : '---'}
-            </DataValue>
-            <span>Título</span>
-            <DataValue outcome>
-              {displayInvestiments ? 'Valor' : '---'}
-            </DataValue>
+            <span>Total investido</span>
+            <DataValue>{displayInvestiments ? 'R$ 5.750,00' : '---'}</DataValue>
+            <span>Evolução no mês</span>
+            <DataValue>{displayInvestiments ? '20%' : '---'}</DataValue>
           </RightData>
         </DataWrapper>
       </Card>

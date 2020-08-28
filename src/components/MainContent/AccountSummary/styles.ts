@@ -12,12 +12,14 @@ export const Container = styled.section`
 export const Card = styled.article`
   ${({ theme }) => css`
     background: ${theme.colors.background};
-    max-width: 26.4rem;
-    max-height: 17.6rem;
     width: 100%;
     height: 100%;
     border-radius: ${theme.radius.default};
     padding: 1.6rem 2.4rem;
+    box-shadow: ${theme.shadows.default};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   `}
 `;
 export const Header = styled.div`
@@ -60,22 +62,36 @@ export const DataWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-top: auto;
+  flex: 1;
 `;
 
 export const LeftData = styled.div`
   ${({ theme }) => css`
     margin-right: 0.8rem;
-    max-width: 60%;
+    max-width: 50%;
     width: 100%;
+    height: 100%;
+    max-height: 2.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     > img {
-      height: 7.2rem;
+      height: 8.2rem;
       width: auto;
     }
   `}
 `;
 export const RightData = styled.div`
-  ${({ theme }) => css``}
+  ${({ theme }) => css`
+    font-size: ${theme.fontSizes.small};
+
+    > span:not(:only-child):last-of-type {
+      margin-top: 1.6rem;
+      display: block;
+    }
+  `}
 `;
 
 type DataValueType = {
@@ -86,18 +102,20 @@ type DataValueType = {
 const getDataColor = (
   colors: DefaultTheme['colors'],
   { income, outcome }: DataValueType,
-) => {
+): string => {
   if (income) {
     return colors.success;
   }
   if (outcome) {
     return colors.error;
   }
-  return 'inherit';
+  return colors.darkGrey;
 };
 
 export const DataValue = styled.div<DataValueType>`
   ${({ theme, income, outcome }) => css`
+    color: ${getDataColor(theme.colors, { income, outcome })};
+
     color: ${getDataColor(theme.colors, { income, outcome })};
   `}
 `;
