@@ -19,6 +19,10 @@ import CreditCardIllustration from '../../../assets/images/illustrations/card-il
 import Button from '../../Button';
 import { lineChartData } from '../../../resources';
 
+type ChartValue = number | React.ReactText | undefined;
+
+const formatChartValue = (value: ChartValue): string => `${value || 0}%`;
+
 const AccountSummary: React.FC = () => {
   const [displayInvestiments, setDisplayInvestments] = useState(true);
   const [displayStatement, setDisplayStatement] = useState(true);
@@ -88,6 +92,7 @@ const AccountSummary: React.FC = () => {
             <ResponsiveLine
               data={lineChartData}
               enableArea
+              useMesh
               enableCrosshair={false}
               curve={'cardinal'}
               margin={{ top: 8, right: 8, bottom: 20, left: 8 }}
@@ -107,6 +112,10 @@ const AccountSummary: React.FC = () => {
                 tickPadding: 8,
                 tickRotation: 0,
               }}
+              tooltip={({ point }) => {
+                setInvestimentGrowth(formatChartValue(point.data.yFormatted));
+                return null;
+              }}
               axisLeft={null}
               colors={colors.success}
               lineWidth={1.5}
@@ -116,7 +125,6 @@ const AccountSummary: React.FC = () => {
               pointBorderColor={{ from: 'serieColor' }}
               pointLabel="y"
               pointLabelYOffset={-12}
-              useMesh
               enableGridY={false}
             />
           </LeftData>

@@ -1,7 +1,9 @@
+import theme from '../styles/theme';
+
 export default [
   {
     id: 'investments',
-    color: 'hsl(41, 70%, 50%)',
+    color: theme.colors.success,
     data: [
       {
         x: 'nov',
