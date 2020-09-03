@@ -72,7 +72,7 @@ export const LeftData = styled.div`
     max-width: 50%;
     width: 100%;
     height: 100%;
-    max-height: 2.9rem;
+    max-height: 9.6rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,6 +80,11 @@ export const LeftData = styled.div`
     > img {
       height: 8.2rem;
       width: auto;
+    }
+
+    svg text {
+      font-size: ${theme.fontSizes.tiny} !important;
+      fill: ${theme.colors.grey} !important;
     }
   `}
 `;

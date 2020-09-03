@@ -22,6 +22,9 @@ import { lineChartData } from '../../../resources';
 const AccountSummary: React.FC = () => {
   const [displayInvestiments, setDisplayInvestments] = useState(true);
   const [displayStatement, setDisplayStatement] = useState(true);
+  const [investimentGrowth, setInvestimentGrowth] = useState('');
+
+  const { colors } = useTheme();
 
   return (
     <Container>
@@ -84,7 +87,10 @@ const AccountSummary: React.FC = () => {
           <LeftData>
             <ResponsiveLine
               data={lineChartData}
-              margin={{ top: 8, right: -8, bottom: 24, left: -8 }}
+              enableArea
+              enableCrosshair={false}
+              curve={'cardinal'}
+              margin={{ top: 8, right: 8, bottom: 20, left: 8 }}
               xScale={{ type: 'point' }}
               yScale={{
                 type: 'linear',
@@ -97,63 +103,30 @@ const AccountSummary: React.FC = () => {
               axisRight={null}
               axisBottom={{
                 orient: 'bottom',
-                tickSize: 5,
-                tickPadding: 5,
+                tickSize: 0,
+                tickPadding: 8,
                 tickRotation: 0,
-                legend: 'transportation',
-                legendOffset: 36,
-                legendPosition: 'middle',
               }}
-              axisLeft={{
-                orient: 'left',
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
-                legend: 'count',
-                legendOffset: -40,
-                legendPosition: 'middle',
-              }}
-              colors={{ scheme: 'nivo' }}
-              pointSize={10}
-              pointColor={{ theme: 'background' }}
+              axisLeft={null}
+              colors={colors.success}
+              lineWidth={1.5}
+              pointSize={8}
+              pointColor={colors.success}
               pointBorderWidth={2}
               pointBorderColor={{ from: 'serieColor' }}
               pointLabel="y"
               pointLabelYOffset={-12}
-              useMesh={true}
-              legends={[
-                {
-                  anchor: 'bottom-right',
-                  direction: 'column',
-                  justify: false,
-                  translateX: 100,
-                  translateY: 0,
-                  itemsSpacing: 0,
-                  itemDirection: 'left-to-right',
-                  itemWidth: 80,
-                  itemHeight: 20,
-                  itemOpacity: 0.75,
-                  symbolSize: 12,
-                  symbolShape: 'circle',
-                  symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                  effects: [
-                    {
-                      on: 'hover',
-                      style: {
-                        itemBackground: 'rgba(0, 0, 0, .03)',
-                        itemOpacity: 1,
-                      },
-                    },
-                  ],
-                },
-              ]}
+              useMesh
+              enableGridY={false}
             />
           </LeftData>
           <RightData>
             <span>Total investido</span>
             <DataValue>{displayInvestiments ? 'R$ 5.750,00' : '---'}</DataValue>
             <span>Evolução no mês</span>
-            <DataValue>{displayInvestiments ? '20%' : '---'}</DataValue>
+            <DataValue>
+              {displayInvestiments ? investimentGrowth : '---'}
+            </DataValue>
           </RightData>
         </DataWrapper>
       </Card>
