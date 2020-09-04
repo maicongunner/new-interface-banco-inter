@@ -124,3 +124,33 @@ export const DataValue = styled.div<DataValueType>`
     color: ${getDataColor(theme.colors, { income, outcome })};
   `}
 `;
+
+export const CustomToolTip = styled.div`
+  ${({ theme }) => css`
+    background: ${theme.colors.lightGrey};
+    padding: 0.4rem 0.8rem;
+    border-radius: ${theme.radius.small};
+    font-size: ${theme.fontSizes.tiny};
+    text-align: center;
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.28);
+
+    :before {
+      content: '';
+      display: block;
+      height: 0;
+      left: 50%;
+      bottom: -50%;
+      position: absolute;
+      transform: translate3d(-50%, 25%, 0);
+      border-color: ${theme.colors.lightGrey} transparent transparent;
+      border-style: solid;
+      border-width: 0.8rem;
+    }
+
+    :after {
+      content: '';
+      display: block;
+      box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.28);
+    }
+  `}
+`;

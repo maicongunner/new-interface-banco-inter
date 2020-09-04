@@ -11,6 +11,7 @@ import {
   RightData,
   DataValue,
   DataWrapper,
+  CustomToolTip,
 } from './styles';
 
 import { FiCreditCard, FiFileText, FiEye, FiEyeOff } from 'react-icons/fi';
@@ -26,7 +27,11 @@ const formatChartValue = (value: ChartValue): string => `${value || 0}%`;
 const AccountSummary: React.FC = () => {
   const [displayInvestiments, setDisplayInvestments] = useState(true);
   const [displayStatement, setDisplayStatement] = useState(true);
-  const [investimentGrowth, setInvestimentGrowth] = useState('');
+  const [investimentGrowth, setInvestimentGrowth] = useState(() => {
+    const [investments] = lineChartData;
+    const { y } = investments.data[investments.data.length - 1];
+    return formatChartValue(y);
+  });
 
   const { colors } = useTheme();
 
@@ -113,8 +118,11 @@ const AccountSummary: React.FC = () => {
                 tickRotation: 0,
               }}
               tooltip={({ point }) => {
-                setInvestimentGrowth(formatChartValue(point.data.yFormatted));
-                return null;
+                return (
+                  <CustomToolTip>
+                    {formatChartValue(point.data.yFormatted)}
+                  </CustomToolTip>
+                );
               }}
               axisLeft={null}
               colors={colors.success}
