@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import { ResponsiveLine } from '@nivo/line';
+import { ResponsiveBar } from '@nivo/bar';
+
 import { useTheme } from 'styled-components';
 
 import {
@@ -18,7 +20,7 @@ import { FiCreditCard, FiFileText, FiEye, FiEyeOff } from 'react-icons/fi';
 import PlataformaPaiLogo from '../../../assets/images/icons/plataforma-pai.png';
 import CreditCardIllustration from '../../../assets/images/illustrations/card-illustration.png';
 import Button from '../../Button';
-import { lineChartData } from '../../../resources';
+import { lineChartData, barChartData } from '../../../resources';
 
 type ChartValue = number | React.ReactText | undefined;
 
@@ -27,11 +29,11 @@ const formatChartValue = (value: ChartValue): string => `${value || 0}%`;
 const AccountSummary: React.FC = () => {
   const [displayInvestiments, setDisplayInvestments] = useState(true);
   const [displayStatement, setDisplayStatement] = useState(true);
-  const [investimentGrowth, setInvestimentGrowth] = useState(() => {
+  const investimentGrowth = useMemo(() => {
     const [investments] = lineChartData;
     const { y } = investments.data[investments.data.length - 1];
     return formatChartValue(y);
-  });
+  }, []);
 
   const { colors } = useTheme();
 
@@ -49,7 +51,55 @@ const AccountSummary: React.FC = () => {
           </Button>
         </Header>
         <DataWrapper>
-          <LeftData></LeftData>
+          <LeftData>
+            <ResponsiveBar
+              data={barChartData}
+              keys={['income', 'outcome']}
+              indexBy="month"
+              colors={({ id, data }) => data[`${id}Color`]}
+              margin={{ top: 0, right: -8, bottom: 20, left: -8 }}
+              padding={0.7}
+              reverse={true}
+              axisTop={null}
+              axisRight={null}
+              axisBottom={{
+                tickSize: 0,
+                tickPadding: 8,
+                tickRotation: 0,
+              }}
+              tooltip={chart => {
+                const label = chart.id === 'income' ? 'Receita' : 'Despesas';
+                const value = chart.data[chart.id];
+                return (
+                  <CustomToolTip rightArrow>
+                    {`${label}: R$ ${value}`}
+                  </CustomToolTip>
+                );
+              }}
+              theme={{
+                tooltip: {
+                  container: {
+                    background: 'transparent',
+                    boxShadow: 'none',
+                    padding: 0,
+                    borderRadius: 0,
+                  },
+                  tableCell: {
+                    padding: 0,
+                  },
+                },
+              }}
+              axisLeft={null}
+              labelSkipWidth={12}
+              labelSkipHeight={12}
+              labelTextColor={'transparent'}
+              animate={true}
+              enableLabel={false}
+              motionStiffness={90}
+              motionDamping={15}
+              enableGridY={false}
+            />
+          </LeftData>
           <RightData>
             <span>Receita</span>
             <DataValue income>
