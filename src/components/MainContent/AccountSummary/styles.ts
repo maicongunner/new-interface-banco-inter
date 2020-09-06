@@ -132,7 +132,7 @@ export const CustomToolTip = styled.div`
     border-radius: ${theme.radius.small};
     font-size: ${theme.fontSizes.tiny};
     text-align: center;
-    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.28);
+    box-shadow: 0 -0.1rem 0.2rem rgba(0, 0, 0, 0.28);
 
     :before {
       content: '';

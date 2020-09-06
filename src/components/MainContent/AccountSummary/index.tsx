@@ -49,7 +49,7 @@ const AccountSummary: React.FC = () => {
           </Button>
         </Header>
         <DataWrapper>
-          <LeftData>Gráfico</LeftData>
+          <LeftData></LeftData>
           <RightData>
             <span>Receita</span>
             <DataValue income>
