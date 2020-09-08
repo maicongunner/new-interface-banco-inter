@@ -52,53 +52,55 @@ const AccountSummary: React.FC = () => {
         </Header>
         <DataWrapper>
           <LeftData>
-            <ResponsiveBar
-              data={barChartData}
-              keys={['income', 'outcome']}
-              indexBy="month"
-              colors={({ id, data }) => data[`${id}Color`]}
-              margin={{ top: 0, right: -8, bottom: 20, left: -8 }}
-              padding={0.7}
-              reverse={true}
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                tickSize: 0,
-                tickPadding: 8,
-                tickRotation: 0,
-              }}
-              tooltip={chart => {
-                const label = chart.id === 'income' ? 'Receita' : 'Despesas';
-                const value = chart.data[chart.id];
-                return (
-                  <CustomToolTip rightArrow>
-                    {`${label}: R$ ${value}`}
-                  </CustomToolTip>
-                );
-              }}
-              theme={{
-                tooltip: {
-                  container: {
-                    background: 'transparent',
-                    boxShadow: 'none',
-                    padding: 0,
-                    borderRadius: 0,
+            {displayStatement ? (
+              <ResponsiveBar
+                data={barChartData}
+                keys={['income', 'outcome']}
+                indexBy="month"
+                colors={({ id, data }) => data[`${id}Color`]}
+                margin={{ top: 0, right: -8, bottom: 20, left: -8 }}
+                padding={0.7}
+                reverse={true}
+                axisTop={null}
+                axisRight={null}
+                axisBottom={{
+                  tickSize: 0,
+                  tickPadding: 8,
+                  tickRotation: 0,
+                }}
+                tooltip={chart => {
+                  const label = chart.id === 'income' ? 'Receita' : 'Despesas';
+                  const value = chart.data[chart.id];
+                  return (
+                    <CustomToolTip rightArrow>
+                      {`${label}: R$ ${value}`}
+                    </CustomToolTip>
+                  );
+                }}
+                theme={{
+                  tooltip: {
+                    container: {
+                      background: 'transparent',
+                      boxShadow: 'none',
+                      padding: 0,
+                      borderRadius: 0,
+                    },
+                    tableCell: {
+                      padding: 0,
+                    },
                   },
-                  tableCell: {
-                    padding: 0,
-                  },
-                },
-              }}
-              axisLeft={null}
-              labelSkipWidth={12}
-              labelSkipHeight={12}
-              labelTextColor={'transparent'}
-              animate={true}
-              enableLabel={false}
-              motionStiffness={90}
-              motionDamping={15}
-              enableGridY={false}
-            />
+                }}
+                axisLeft={null}
+                labelSkipWidth={12}
+                labelSkipHeight={12}
+                labelTextColor={'transparent'}
+                animate={true}
+                enableLabel={false}
+                motionStiffness={90}
+                motionDamping={15}
+                enableGridY={false}
+              />
+            ) : null}
           </LeftData>
           <RightData>
             <span>Receita</span>
@@ -144,47 +146,49 @@ const AccountSummary: React.FC = () => {
         </Header>
         <DataWrapper>
           <LeftData>
-            <ResponsiveLine
-              data={lineChartData}
-              enableArea
-              useMesh
-              enableCrosshair={false}
-              curve={'cardinal'}
-              margin={{ top: 8, right: 8, bottom: 20, left: 8 }}
-              xScale={{ type: 'point' }}
-              yScale={{
-                type: 'linear',
-                min: 'auto',
-                max: 'auto',
-                stacked: true,
-                reverse: false,
-              }}
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                orient: 'bottom',
-                tickSize: 0,
-                tickPadding: 8,
-                tickRotation: 0,
-              }}
-              tooltip={({ point }) => {
-                return (
-                  <CustomToolTip>
-                    {formatChartValue(point.data.yFormatted)}
-                  </CustomToolTip>
-                );
-              }}
-              axisLeft={null}
-              colors={colors.success}
-              lineWidth={1.5}
-              pointSize={8}
-              pointColor={colors.success}
-              pointBorderWidth={2}
-              pointBorderColor={{ from: 'serieColor' }}
-              pointLabel="y"
-              pointLabelYOffset={-12}
-              enableGridY={false}
-            />
+            {displayInvestiments ? (
+              <ResponsiveLine
+                data={lineChartData}
+                enableArea
+                useMesh
+                enableCrosshair={false}
+                curve={'cardinal'}
+                margin={{ top: 8, right: 8, bottom: 20, left: 8 }}
+                xScale={{ type: 'point' }}
+                yScale={{
+                  type: 'linear',
+                  min: 'auto',
+                  max: 'auto',
+                  stacked: true,
+                  reverse: false,
+                }}
+                axisTop={null}
+                axisRight={null}
+                axisBottom={{
+                  orient: 'bottom',
+                  tickSize: 0,
+                  tickPadding: 8,
+                  tickRotation: 0,
+                }}
+                tooltip={({ point }) => {
+                  return (
+                    <CustomToolTip>
+                      {formatChartValue(point.data.yFormatted)}
+                    </CustomToolTip>
+                  );
+                }}
+                axisLeft={null}
+                colors={colors.success}
+                lineWidth={1.5}
+                pointSize={8}
+                pointColor={colors.success}
+                pointBorderWidth={2}
+                pointBorderColor={{ from: 'serieColor' }}
+                pointLabel="y"
+                pointLabelYOffset={-12}
+                enableGridY={false}
+              />
+            ) : null}
           </LeftData>
           <RightData>
             <span>Total investido</span>
