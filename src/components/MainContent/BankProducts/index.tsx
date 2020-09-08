@@ -5,6 +5,9 @@ import { FiShoppingCart, FiArrowRight, FiChevronRight } from 'react-icons/fi';
 import { useTheme } from 'styled-components';
 import { darken } from 'polished';
 
+import { bankProducts } from '../../../resources';
+import { Navigation, Card } from '../NavigationCards/styles';
+
 const BankProducts: React.FC = () => {
   const { colors } = useTheme();
 
@@ -19,6 +22,14 @@ const BankProducts: React.FC = () => {
           </div>
           <FiArrowRight size={24} />
         </ShoppingButton>
+        <Navigation>
+          {Object.entries(bankProducts).map(([key, value]) => (
+            <Card key={`card-${key}`}>
+              <div>{value.icon}</div>
+              {key}
+            </Card>
+          ))}
+        </Navigation>
       </div>
       <div>
         <EquityButton background={colors.primaryDark}>
@@ -27,11 +38,13 @@ const BankProducts: React.FC = () => {
             <ul>
               <li>
                 <FiChevronRight color={colors.yellow} />
-                Taxa Pré-Fixada 1%
+                <span>Taxa Pré-Fixada 1%</span>
               </li>
               <li>
                 <FiChevronRight color={colors.yellow} />
-                Até <strong>84 meses</strong> para pagar
+                <span>
+                  Até <strong>84 meses</strong> para pagar
+                </span>
               </li>
             </ul>
             <ShoppingButton
@@ -43,12 +56,17 @@ const BankProducts: React.FC = () => {
           </div>
         </EquityButton>
         <LoanButton background={colors.secondary}>
-          <h3>Home Equity Banco Inter</h3>
+          <h3>
+            <span>Quer ficar livre dos juros altos?</span>
+            Empréstimo consignado, <br /> o crédito para o seu momento.
+          </h3>
           <div>
             <ul>
               <li>
                 <FiChevronRight color={colors.yellow} />
-                Taxas a partir de <strong>1,30%</strong> ao mês
+                <span>
+                  Taxas a partir de <strong>1,30%</strong> ao mês
+                </span>
               </li>
             </ul>
             <ShoppingButton

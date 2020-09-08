@@ -116,6 +116,7 @@ export const LoanButton = styled(EquityButton)`
         max-width: 14.1rem;
 
         li {
+          display: flex;
           align-items: flex-start;
           svg {
             margin-top: 0.3rem;
