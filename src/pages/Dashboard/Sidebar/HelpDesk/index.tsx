@@ -1,11 +1,19 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, HelpButton } from './styles';
+import BabiHelpDesk from '../../../../assets/images/illustrations/babi.png';
+import { FiArrowRight } from 'react-icons/fi';
 
 const HelpDesk: React.FC = () => {
   return (
     <Container>
-      <h3>help desk</h3>
+      <img src={BabiHelpDesk} alt="Eu sou a Babi do Banco Inter" />
+      <span>
+        Olá, Luke. <br /> Posso Ajudar?
+      </span>
+      <HelpButton>
+        <FiArrowRight size={16} />
+      </HelpButton>
     </Container>
   );
 };
