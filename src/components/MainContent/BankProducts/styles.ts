@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components';
 import { Container as ButtonContainer } from '../../../components/Button/styles';
 import ButtonBackground from '../../../assets/images/illustrations/button_background.svg';
+import { Navigation, Card } from '../NavigationCards/styles';
 
 export const Container = styled.section`
   ${({ theme }) => css`
     background: ${theme.colors.background};
     border-radius: ${theme.radius.default};
-    box-shadow: ${theme.shadows.default};
+    box-shadow: ${theme.shadows.flat};
     padding: 2.4rem;
     max-height: 34.2rem;
     height: 100%;
@@ -30,6 +31,7 @@ export const ShoppingButton = styled(ButtonContainer)`
     width: 100%;
     border-radius: ${theme.radius.default};
     flex: 1 0 100%;
+
     svg:first-of-type {
       margin-left: 1.6rem;
     }
@@ -124,6 +126,39 @@ export const LoanButton = styled(EquityButton)`
           span {
             max-width: 12rem;
           }
+        }
+      }
+    }
+  `}
+`;
+
+export const Products = styled(Navigation)`
+  ${() => css`
+    flex-grow: 0;
+    grid-template-columns: repeat(5, minmax(6.4rem, 1fr));
+    margin: 0 -0.8rem;
+  `}
+`;
+
+export const ProductsCard = styled(Card)`
+  ${({ theme }) => css`
+    box-shadow: none;
+    background: none;
+    font-size: ${theme.fontSizes.small};
+    padding: 0;
+
+    > div {
+      margin-bottom: auto;
+
+      svg {
+        stroke-width: none;
+      }
+    }
+
+    :nth-child(3) {
+      > div {
+        svg {
+          margin: -0.2rem 0 0 -0.5rem;
         }
       }
     }

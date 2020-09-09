@@ -32,6 +32,7 @@ export default {
     default: '180ms ease-in-out',
   },
   shadows: {
-    default: '0 5px 20px  rgba(0, 0, 0, 0.08)',
+    default: '0 0.5rem 2rem  rgba(0, 0, 0, 0.08)',
+    flat: '0 0.2rem 0.2rem  rgba(0, 0, 0, 0.08)',
   },
 } as const;

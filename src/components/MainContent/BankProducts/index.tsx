@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { Container, ShoppingButton, EquityButton, LoanButton } from './styles';
+import {
+  Container,
+  ShoppingButton,
+  EquityButton,
+  LoanButton,
+  ProductsCard,
+  Products,
+} from './styles';
 import { FiShoppingCart, FiArrowRight, FiChevronRight } from 'react-icons/fi';
 import { useTheme } from 'styled-components';
 import { darken } from 'polished';
@@ -22,14 +29,14 @@ const BankProducts: React.FC = () => {
           </div>
           <FiArrowRight size={24} />
         </ShoppingButton>
-        <Navigation>
+        <Products>
           {Object.entries(bankProducts).map(([key, value]) => (
-            <Card key={`card-${key}`}>
+            <ProductsCard key={`card-${key}`}>
               <div>{value.icon}</div>
               {key}
-            </Card>
+            </ProductsCard>
           ))}
-        </Navigation>
+        </Products>
       </div>
       <div>
         <EquityButton background={colors.primaryDark}>

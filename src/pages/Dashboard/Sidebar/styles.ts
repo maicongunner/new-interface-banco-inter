@@ -2,6 +2,12 @@ import styled, { css } from 'styled-components';
 import { transparentize } from 'polished';
 import Button from '../../../components/Button';
 
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+`;
+
 export const Container = styled.div`
   ${({ theme }) => css`
     background: ${theme.colors.background};
