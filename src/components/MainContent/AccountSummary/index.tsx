@@ -72,7 +72,10 @@ const AccountSummary: React.FC = () => {
                   const label = chart.id === 'income' ? 'Receita' : 'Despesas';
                   const value = chart.data[chart.id];
                   return (
-                    <CustomToolTip rightArrow>
+                    <CustomToolTip
+                      rightArrow={chart.index >= 3}
+                      leftArrow={chart.index < 3}
+                    >
                       {`${label}: R$ ${value}`}
                     </CustomToolTip>
                   );
@@ -153,7 +156,7 @@ const AccountSummary: React.FC = () => {
                 useMesh
                 enableCrosshair={false}
                 curve={'cardinal'}
-                margin={{ top: 8, right: 8, bottom: 20, left: 8 }}
+                margin={{ top: 8, right: 8, bottom: 24, left: 12 }}
                 xScale={{ type: 'point' }}
                 yScale={{
                   type: 'linear',
