@@ -50,7 +50,7 @@ export const ShoppingButton = styled(ButtonContainer)`
   `}
 `;
 
-export const EquityButton = styled(ButtonContainer)`
+export const EquitySection = styled.section`
   ${({ theme }) => css`
     padding: 1.6rem 2.4rem;
     max-width: 38.4rem;
@@ -63,7 +63,7 @@ export const EquityButton = styled(ButtonContainer)`
     justify-content: space-between;
     align-items: flex-start;
     border-radius: ${theme.radius.default};
-    background-image: url(${ButtonBackground});
+    background: url(${ButtonBackground}), ${theme.colors.primaryDark};
 
     > h3 {
       font-size: ${theme.fontSizes.large};
@@ -100,7 +100,7 @@ export const EquityButton = styled(ButtonContainer)`
   `}
 `;
 
-export const LoanButton = styled(EquityButton)`
+export const LoanSection = styled(EquitySection)`
   ${({ theme }) => css`
     background: ${theme.colors.secondary};
     background-image: none;

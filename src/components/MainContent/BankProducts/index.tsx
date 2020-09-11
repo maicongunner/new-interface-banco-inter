@@ -3,8 +3,8 @@ import React from 'react';
 import {
   Container,
   ShoppingButton,
-  EquityButton,
-  LoanButton,
+  EquitySection,
+  LoanSection,
   ProductsCard,
   Products,
 } from './styles';
@@ -39,7 +39,7 @@ const BankProducts: React.FC = () => {
         </Products>
       </div>
       <div>
-        <EquityButton background={colors.primaryDark}>
+        <EquitySection>
           <h3>Home Equity Banco Inter</h3>
           <div>
             <ul>
@@ -61,8 +61,8 @@ const BankProducts: React.FC = () => {
               Solicitar agora
             </ShoppingButton>
           </div>
-        </EquityButton>
-        <LoanButton background={colors.secondary}>
+        </EquitySection>
+        <LoanSection>
           <h3>
             <span>Quer ficar livre dos juros altos?</span>
             Empréstimo consignado, <br /> o crédito para o seu momento.
@@ -83,7 +83,7 @@ const BankProducts: React.FC = () => {
               Solicitar agora
             </ShoppingButton>
           </div>
-        </LoanButton>
+        </LoanSection>
       </div>
     </Container>
   );
