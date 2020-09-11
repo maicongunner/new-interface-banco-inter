@@ -29,17 +29,27 @@ export const Container = styled.div`
 
 export const Balance = styled.div`
   ${({ theme }) => css`
+    flex: 1;
+    position: relative;
+
     > span {
       font-size: ${theme.fontSizes.small};
       display: block;
 
-      :last-child {
+      + span {
         margin: 0.2rem 0;
         max-width: 10rem;
         height: 2rem;
-        background: ${theme.colors.grey}b3;
+        background: #abaebf;
         border-radius: ${theme.radius.tiny};
+        position: absolute;
+        z-index: 2;
       }
+    }
+
+    > div {
+      position: relative;
+      z-index: 0;
     }
 
     > strong {
