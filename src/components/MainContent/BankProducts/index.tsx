@@ -15,11 +15,25 @@ import { darken } from 'polished';
 import { bankProducts } from '../../../resources';
 import { Navigation, Card } from '../NavigationCards/styles';
 
+import { DEFAULT_TRANSITION } from '../../../constants';
+
+const animation = {
+  unMounted: { opacity: 0, x: 50 },
+  mounted: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: 1.2,
+      ...DEFAULT_TRANSITION,
+    },
+  },
+};
+
 const BankProducts: React.FC = () => {
   const { colors } = useTheme();
 
   return (
-    <Container>
+    <Container variants={animation}>
       <div>
         <ShoppingButton background={colors.lightGrey}>
           <FiShoppingCart size={32} />

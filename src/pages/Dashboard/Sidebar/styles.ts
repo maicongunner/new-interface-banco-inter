@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 import { transparentize } from 'polished';
 import Button from '../../../components/Button';
 
+import { motion } from 'framer-motion';
+
 export const Wrapper = styled.div`
   max-width: 26.4rem;
   display: flex;
@@ -9,7 +11,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Container = styled.div`
+export const Container = styled(motion.section)`
   ${({ theme }) => css`
     background: ${theme.colors.background};
     max-height: 60rem;

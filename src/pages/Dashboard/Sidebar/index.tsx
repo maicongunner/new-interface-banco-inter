@@ -7,11 +7,21 @@ import AccountBalance from './AccountBalance';
 import HelpDesk from './HelpDesk';
 
 import { Container, AmountInvested, Wrapper } from './styles';
+import { DEFAULT_TRANSITION } from '../../../constants';
+
+const animation = {
+  unMounted: { opacity: 0, y: -50 },
+  mounted: {
+    opacity: 1,
+    y: 0,
+    transtion: { delay: 0.5, ...DEFAULT_TRANSITION },
+  },
+};
 
 const Sidebar: React.FC = () => {
   return (
     <Wrapper>
-      <Container>
+      <Container variants={animation}>
         <AccountBalance />
         <AmountInvested>
           Ver total investido <FiBarChart2 size="1.6rem" />

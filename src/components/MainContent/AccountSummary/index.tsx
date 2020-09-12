@@ -21,6 +21,26 @@ import PlataformaPaiLogo from '../../../assets/images/icons/plataforma-pai.png';
 import CreditCardIllustration from '../../../assets/images/illustrations/card-illustration.png';
 import Button from '../../Button';
 import { lineChartData, barChartData } from '../../../resources';
+import { DEFAULT_TRANSITION } from '../../../constants';
+
+const containerAnimation = {
+  unMounted: { y: -50, opacity: 0 },
+  mounted: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      ...DEFAULT_TRANSITION,
+      delay: 0.3,
+      when: 'beforeChildren',
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const cardsAnimation = {
+  unMounted: { y: -25, opacity: 0 },
+  mounted: { y: 0, opacity: 1 },
+};
 
 type ChartValue = number | React.ReactText | undefined;
 
@@ -38,14 +58,18 @@ const AccountSummary: React.FC = () => {
   const { colors } = useTheme();
 
   return (
-    <Container>
-      <Card>
+    <Container variants={containerAnimation}>
+      <Card
+        key="extract"
+        variants={cardsAnimation}
+        transition={DEFAULT_TRANSITION}
+      >
         <Header>
           <FiFileText />
           <h3>Extrato</h3>
           <Button
             onClick={() => setDisplayStatement(prevState => !prevState)}
-            variant="transparent"
+            revision="transparent"
           >
             {displayStatement ? <FiEyeOff /> : <FiEye />}
           </Button>
@@ -118,7 +142,11 @@ const AccountSummary: React.FC = () => {
         </DataWrapper>
       </Card>
 
-      <Card>
+      <Card
+        key="credit-card"
+        variants={cardsAnimation}
+        transition={DEFAULT_TRANSITION}
+      >
         <Header>
           <FiCreditCard />
           <h3>MasterCard 8430</h3>
@@ -136,13 +164,17 @@ const AccountSummary: React.FC = () => {
         </DataWrapper>
       </Card>
 
-      <Card>
+      <Card
+        key="investiments"
+        variants={cardsAnimation}
+        transition={DEFAULT_TRANSITION}
+      >
         <Header>
           <img src={PlataformaPaiLogo} alt="Plataforma pai logo" />
           <h3>Plataforma Aberta Inter</h3>
           <Button
             onClick={() => setDisplayInvestments(prevState => !prevState)}
-            variant="transparent"
+            revision="transparent"
           >
             {displayInvestiments ? <FiEyeOff /> : <FiEye />}
           </Button>

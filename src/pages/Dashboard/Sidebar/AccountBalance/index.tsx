@@ -4,42 +4,26 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { Container, Balance } from './styles';
 import Button from '../../../../components/Button';
+import BalanceSecret from './BalanceSecret';
 
 const AccountBalance: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const [isValueVisible, setIsValueVisible] = useState(false);
 
   return (
     <Container>
       <Balance>
         <span>Saldo em Conta:</span>
-        <AnimatePresence>
-          {isVisible && (
-            <motion.span
-              key="balance-secret"
-              layoutId="balance-secret"
-              initial={{ width: '0%' }}
-              animate={{ width: '100%' }}
-              transition={{ duration: 0.28, ease: 'easeInOut' }}
-              exit={{ width: '0%' }}
-            />
-          )}
+        <AnimatePresence initial={false}>
+          {!isHidden && <BalanceSecret setIsValueVisible={setIsValueVisible} />}
         </AnimatePresence>
-        <motion.div
-          key="balance-value"
-          layoutId="balance-value"
-          initial={{ opacity: 0, y: -15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2, ease: 'easeInOut' }}
-          exit={{ opacity: 0, x: -15 }}
-        >
-          R$ <strong>765,59</strong>
-        </motion.div>
+        R$ <strong>{isValueVisible ? '765,59' : '---'}</strong>
       </Balance>
       <Button
-        variant="transparent"
-        onClick={() => setIsVisible(prevState => !prevState)}
+        revision="transparent"
+        onClick={() => setIsHidden(prevState => !prevState)}
       >
-        {isVisible ? <FiEye /> : <FiEyeOff />}
+        {isHidden ? <FiEye /> : <FiEyeOff />}
       </Button>
     </Container>
   );

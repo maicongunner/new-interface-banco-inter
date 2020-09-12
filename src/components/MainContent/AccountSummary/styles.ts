@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion';
 import styled, { css, DefaultTheme } from 'styled-components';
 
-export const Container = styled.section`
+export const Container = styled(motion.section)`
   ${() => css`
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -9,7 +10,7 @@ export const Container = styled.section`
   `}
 `;
 
-export const Card = styled.article`
+export const Card = styled(motion.article)`
   ${({ theme }) => css`
     background: ${theme.colors.background};
     width: 100%;

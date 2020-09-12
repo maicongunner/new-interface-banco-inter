@@ -1,9 +1,9 @@
 import { ButtonHTMLAttributes } from 'react';
 
-export type ButtonVariants = 'secondary' | 'transparent';
+export type Buttonrevisions = 'secondary' | 'transparent';
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: ButtonVariants;
+  revision?: Buttonrevisions;
   background?: string;
   color?: string;
 };

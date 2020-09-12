@@ -2,8 +2,9 @@ import styled, { css } from 'styled-components';
 import { Container as ButtonContainer } from '../../../components/Button/styles';
 import ButtonBackground from '../../../assets/images/illustrations/button_background.svg';
 import { Navigation, Card } from '../NavigationCards/styles';
+import { motion } from 'framer-motion';
 
-export const Container = styled.section`
+export const Container = styled(motion.section)`
   ${({ theme }) => css`
     background: ${theme.colors.background};
     border-radius: ${theme.radius.default};

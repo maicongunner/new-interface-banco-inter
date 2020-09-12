@@ -5,12 +5,12 @@ import { ButtonProps } from './Button';
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  variant,
+  revision,
   type,
   ...rest
 }) => {
   return (
-    <Container type={type || 'button'} variant={variant} {...rest}>
+    <Container type={type || 'button'} revision={revision} {...rest}>
       {children}
     </Container>
   );
