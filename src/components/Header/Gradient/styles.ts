@@ -1,8 +1,12 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled(motion.aside)`
   width: 100%;
   height: 6.4rem;
+  align-self: flex-start;
+  position: absolute;
+  top: 100%;
   background: ${({ theme }) =>
     `linear-gradient(90deg, ${theme.colors.secondary} 0%, ${theme.colors.primary} 100%);`};
 `;
