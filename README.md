@@ -3,6 +3,8 @@
 
 This project we had developed a new UI of a bank of Brazil called Banco Inter, created by Vinícius Tifosi.
 
+<p><img src="https://res.cloudinary.com/lukemorales/image/upload/v1599784304/readme_logos/bancointer-preview_resa83.png" style="max-width:100%;"></p>
+
 ## Available Scripts
 
 In the project directory, you can run:
