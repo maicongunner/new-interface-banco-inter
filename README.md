@@ -3,10 +3,6 @@
 
 This project we had developed a new UI of a bank of Brazil called Banco Inter, created by Vinícius Tifosi.
 
-<h1 align="center">
-    <img src="https://media-exp1.licdn.com/dms/image/C4E22AQGUMrOsyQZ4pw/feedshare-shrink_800/0?e=1600300800&v=beta&t=fFWwoEgLu7S_ZTSXlw5A_I6EcJLvB2E04DIpexB_Gx0" width="100%">
-</h1>
-
 ## Available Scripts
 
 In the project directory, you can run:
